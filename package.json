@@ -1,0 +1,32 @@
+{
+  "name": "macdown-gitlab",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build:web": "node scripts/build-web.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "test:coverage": "node --experimental-test-coverage --test-coverage-include=Web/core.js --test-coverage-include=Web/navigation.js --test-coverage-lines=95 --test-coverage-branches=80 --test-coverage-functions=90 --test tests/*.test.mjs",
+    "test:mutations": "node scripts/check-mutations.mjs",
+    "test:ui": "playwright test",
+    "check": "npm test && npm run build:web && npm run test:ui",
+    "build:app": "bash scripts/build-app.sh"
+  },
+  "dependencies": {
+    "dompurify": "3.4.16",
+    "github-slugger": "2.0.0",
+    "katex": "0.19.0",
+    "markdown-it": "14.3.2",
+    "markdown-it-deflist": "3.0.0",
+    "markdown-it-footnote": "4.0.0",
+    "markdown-it-task-lists": "2.1.1",
+    "mermaid": "11.17.2",
+    "turndown": "7.2.2"
+  },
+  "overrides": { "katex": "$katex" },
+  "devDependencies": {
+    "@playwright/test": "1.56.1",
+    "esbuild": "0.25.11",
+    "jsdom": "27.0.1"
+  }
+}

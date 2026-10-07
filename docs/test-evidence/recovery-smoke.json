@@ -1,0 +1,8 @@
+{
+  "passed" : true,
+  "checks" : [
+    "never-saved draft restored in a second native app process",
+    "CRLF and Unicode preserved on recovery",
+    "recovered draft rendered in WKWebView"
+  ]
+}

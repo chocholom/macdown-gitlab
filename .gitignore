@@ -198,3 +198,12 @@ bin/
 
 # Local environment variables (Apple credentials for release automation)
 .envrc
+
+# New native editor and bundled web build
+node_modules/
+.build/
+dist/
+playwright-report/
+test-results/
+Sources/MacDownGitLab/Web/
+!package-lock.json

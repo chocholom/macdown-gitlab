@@ -1,0 +1,47 @@
+name: Enhanced editor
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run test:coverage
+      - run: npm run test:mutations
+      - run: npm run build:web
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:ui
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: editor-browser-failures
+          path: test-results/
+  native:
+    runs-on: macos-14
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run build:web
+      - run: swift test --enable-code-coverage
+      - run: bash scripts/check-native-coverage.sh
+      - run: bash scripts/build-app.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MacDown-GitLab-Apple-Silicon
+          path: dist/

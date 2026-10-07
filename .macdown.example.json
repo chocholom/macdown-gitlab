@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "dialect": "gitlab",
+  "files": {
+    "docs/portable.md": "commonmark",
+    "README.md": "github"
+  },
+  "assetsDirectory": "assets",
+  "gitlabInstance": "https://gitlab.com",
+  "gitlabProject": "group/project"
+}

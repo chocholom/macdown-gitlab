@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: mdasset: https:; font-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'">
+<title>MacDown GitLab</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="katex/katex.min.css"></head>
+<body>
+<header>
+  <div class="identity"><strong>MacDown GitLab</strong><span id="filename">Untitled.md</span><span id="dirty" aria-label="Unsaved changes"></span></div>
+  <div class="file-actions"><button data-native="new">New</button><button data-native="open">Open</button><button data-native="save" title="Save (⌘S)">Save</button><button data-native="chooseProject">Choose project</button><button id="settings-toggle" aria-expanded="false">Settings</button></div>
+</header>
+<section id="settings" hidden aria-label="Document settings">
+  <label>Markdown flavour <select id="dialect"><option value="commonmark">CommonMark</option><option value="github">GitHub</option><option value="gitlab">GitLab</option></select></label>
+  <label>Apply to <select id="scope"><option value="file">This file</option><option value="project">This project</option><option value="global">Global default</option></select></label>
+  <button id="set-dialect">Apply flavour</button><button id="reset-dialect">Use inherited setting</button>
+  <label>Appearance <select id="appearance"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+  <label>Export theme <select id="export-theme"><option value="paper">Paper</option><option value="warm">Warm</option></select></label>
+  <label>Export font (pt) <input id="export-font" type="number" value="12" min="8" max="24"></label>
+  <label>Export margin (mm) <input id="export-margin" type="number" value="20" min="5" max="50"></label>
+  <button data-native="exportHTML">Export HTML</button><button data-native="exportPDF">Export PDF</button>
+  <label>GitLab instance <input id="instance" type="url" value="https://gitlab.com"></label>
+  <label>GitLab project <input id="gitlab-project" placeholder="group/project"></label>
+  <button id="remote-preview">Render on GitLab…</button>
+  <p>GitLab offline preview supports local syntax. Issue/user references, includes and queries need server context. Server preview sends this document only when you explicitly request it; its styling can differ.</p>
+</section>
+<nav class="toolbar" aria-label="Formatting">
+  <button data-command="bold" title="Bold (⌘B)"><strong>B</strong></button><button data-command="italic" title="Italic (⌘I)"><em>I</em></button><button data-command="strike" title="Strikethrough">S̶</button>
+  <button data-command="heading" title="Heading">Heading</button><button data-command="bullet">List</button><button data-command="ordered">Numbered</button><button data-command="task">Task</button><button data-command="quote">Quote</button>
+  <button data-command="indent" title="Indent list">Indent</button><button data-command="outdent" title="Outdent list">Outdent</button><button data-command="code">Inline code</button>
+  <input id="language" aria-label="Code language" placeholder="language" list="languages"><datalist id="languages"><option value="bash"><option value="javascript"><option value="python"><option value="swift"><option value="json"><option value="mermaid"></datalist>
+  <button data-command="fence">Code block</button><button data-command="table">Table</button>
+  <button id="link-toggle">Link…</button><button data-native="importImage">Image…</button><button data-native="pasteImage">Paste image</button>
+  <button id="undo" title="Undo (⌘Z)">Undo</button><button id="redo" title="Redo (⇧⌘Z)">Redo</button>
+</nav>
+<div id="link-panel" class="auxiliary" hidden><label>Link target <input id="link-target" list="link-targets" placeholder="#heading or relative/path.md"></label><datalist id="link-targets"></datalist><button id="insert-link">Insert link</button><label>Image alt text <input id="image-alt" placeholder="Describe the image"></label></div>
+<div class="viewbar">
+  <div role="group" aria-label="Editor mode"><button data-mode="split" aria-pressed="true">Split</button><button data-mode="source" aria-pressed="false">Source</button><button data-mode="preview" aria-pressed="false">Preview</button><button data-mode="visual" aria-pressed="false">Visual edit</button></div>
+  <div role="group" aria-label="Reading navigation"><button id="show-preview">Show in preview</button><button id="show-source">Show in source</button></div>
+  <label class="scroll-link"><input id="link-scrolling" type="checkbox" checked> Link scrolling</label>
+  <label>Find in preview <input id="search" type="search" placeholder="Search rendered text (⌘F)"></label><button id="previous-match" aria-label="Previous match">↑</button><button id="next-match" aria-label="Next match">↓</button><span id="match-count" aria-live="polite"></span>
+</div>
+<div id="notice" role="status" aria-live="polite" hidden></div>
+<div id="warning" role="alert" hidden></div>
+<main id="workspace" data-mode="split">
+  <aside aria-label="Navigation">
+    <details open><summary>Outline</summary><input id="outline-filter" type="search" aria-label="Filter headings" placeholder="Filter headings"><nav id="outline" aria-label="Document outline"></nav></details>
+    <details><summary id="project-name">Project</summary><input id="project-query" type="search" aria-label="Search project" placeholder="Search project text"><button id="project-search">Search</button><div id="project-results"></div><nav id="files" aria-label="Project files"></nav></details>
+    <details open><summary>Diagnostics <span id="diagnostic-count">0</span></summary><div id="diagnostics" aria-label="Markdown diagnostics"></div></details>
+  </aside>
+  <section id="source-pane" aria-label="Markdown source"><textarea id="source" aria-label="Markdown source" spellcheck="false" wrap="off"></textarea></section>
+  <section id="preview-pane" aria-label="Rendered Markdown" tabindex="-1"><div class="pane-title"><span id="preview-label">Offline preview</span><button id="offline-preview" hidden>Return to offline</button><span>Right-click a block to show its source</span></div><article id="preview" class="markdown"></article></section>
+  <section id="visual-pane" aria-label="Visual Markdown editor" tabindex="-1"><div class="pane-title">Edit paragraphs, headings and table cells directly. Right-click any block to show its source.</div><article id="visual" class="markdown" aria-label="Visual editor"></article></section>
+</main>
+<div id="navigation-menu" role="menu" aria-label="Reading navigation" hidden><button id="navigation-action" role="menuitem">Show in source</button></div>
+<div id="table-tools" hidden aria-label="Table operations"><span>Selected table</span><button data-table="add-row">Add row</button><button data-table="remove-row">Remove row</button><button data-table="add-column">Add column</button><button data-table="remove-column">Remove column</button></div>
+<footer><span id="profile-status">GitLab · global default</span><span id="counts">0 words</span><span id="position">Line 1</span></footer>
+<script src="editor.js"></script>
+</body></html>

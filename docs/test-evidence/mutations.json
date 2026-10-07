@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "mutation": "drop the first byte after every edited range",
+      "detected": true
+    },
+    {
+      "mutation": "reverse settings precedence",
+      "detected": true
+    },
+    {
+      "mutation": "normalize CRLF during block edits",
+      "detected": true
+    }
+  ]
+}

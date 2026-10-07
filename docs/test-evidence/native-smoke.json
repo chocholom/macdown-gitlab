@@ -1,0 +1,27 @@
+{
+  "architecture" : "arm64",
+  "checks" : [
+    "application loads resources from its own relocatable bundle",
+    "WKWebView loaded bundled editor and rendered Markdown",
+    "no-op native save preserves CRLF bytes",
+    "visual edit travels through native bridge and preserves other source",
+    "modified file draft survives independent storage read",
+    "native edited save round-trips exactly",
+    "saving removes recovered draft",
+    "fresh native document reopens saved Markdown",
+    "WKWebView linked scrolling follows the source centre",
+    "WKWebView linked scrolling follows the rendered centre",
+    "WKWebView visual context action selects source without changing Markdown",
+    "project and file settings persist with correct precedence",
+    "image import creates a relative Markdown link",
+    "local image is served through restricted WKWebView scheme",
+    "standalone HTML embeds local image bytes",
+    "standalone HTML embeds math fonts",
+    "native PDF export produces a valid PDF",
+    "long PDF has bounded A4 pagination",
+    "recovery detects an externally modified file",
+    "save does not overwrite external changes"
+  ],
+  "engine" : "WKWebView",
+  "passed" : true
+}
